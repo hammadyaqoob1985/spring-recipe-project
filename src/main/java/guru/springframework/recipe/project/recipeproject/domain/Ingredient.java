@@ -12,6 +12,10 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
 
+    //LOAD UOM WHEN SOMEONE LOADS Ingredient
+    @OneToOne (fetch = FetchType.EAGER)
+    private String uom;
+
     @ManyToOne
     private Recipe recipe;
 
@@ -45,5 +49,13 @@ public class Ingredient {
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
+    }
+
+    public String getUom() {
+        return uom;
+    }
+
+    public void setUom(String uom) {
+        this.uom = uom;
     }
 }
