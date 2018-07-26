@@ -1,6 +1,7 @@
 package guru.springframework.recipe.project.recipeproject.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -16,6 +17,10 @@ public class Recipe {
     private Integer source;
     private String url;
     private String directions;
+
+    //cascase all persist all operations, Recipe is owner. Will be stored in ingredient recipe attribute
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     @Lob //for large information in hibernate as hibernate only support 255 characted max. Will be stored is clob in hibernate
     private Byte[] image;
@@ -102,5 +107,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
