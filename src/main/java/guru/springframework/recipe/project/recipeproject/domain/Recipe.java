@@ -25,6 +25,9 @@ public class Recipe {
     @Lob //for large information in hibernate as hibernate only support 255 characted max. Will be stored is clob in hibernate
     private Byte[] image;
 
+    //Use string rather than ordinal as ordinal takes index of enum and if number changes the index will be messed up
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
 
     public Long getId() {
         return id;
@@ -115,5 +118,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 }
