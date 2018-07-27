@@ -14,7 +14,7 @@ public class Ingredient {
 
     //LOAD UOM WHEN SOMEONE LOADS Ingredient
     @OneToOne (fetch = FetchType.EAGER)
-    private String uom;
+    private UnitOfMeasure uom;
 
     @ManyToOne
     private Recipe recipe;
@@ -51,11 +51,11 @@ public class Ingredient {
         this.recipe = recipe;
     }
 
-    public String getUom() {
+    public UnitOfMeasure getUom() {
         return uom;
     }
 
-    public void setUom(String uom) {
+    public void setUom(UnitOfMeasure uom) {
         this.uom = uom;
     }
 }
