@@ -117,10 +117,18 @@ public class Recipe {
         return notes;
     }
 
+    //added so that when we add a note to a recipe the bidierectional relation is automatically set
     public void setNotes(Notes notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
 
+    //added so that when adding Ingredient to recipe bidirectional relation set
+    public Recipe addIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
+    }
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
