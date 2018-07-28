@@ -6,7 +6,23 @@
 </head>
 <body>
 <h1>My Recipes</h1>
-<p th:text="${category}"></p>
-<p th:text="${unitOfMeasure}"></p>
+
+<section th:each="recipe : ${ recipes }">
+<h2 th:text="${recipe.description}">blah</h2>
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Unit of Measure</th>
+        </tr>
+        <tr th:each="ingredient : ${ recipe.ingredients }">
+            <td th:text="${ ingredient.description }">123</td>
+            <td th:text="${ ingredient.amount }">Spring in Action</td>
+            <td th:text="${ ingredient.uom }"></td>
+        </tr>
+    </table>
+    <h3>Method</h3>
+    <p th:text="${recipe.directions}"></p>
+</section>
 </body>
 </html>

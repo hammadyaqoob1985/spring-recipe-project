@@ -16,6 +16,7 @@ public class Recipe {
     private Integer servings;
     private Integer source;
     private String url;
+    @Lob
     private String directions;
 
     //cascase all persist all operations, Recipe is owner. Will be stored in ingredient recipe attribute
