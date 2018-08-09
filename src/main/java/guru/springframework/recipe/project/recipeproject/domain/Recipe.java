@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//lombok creates getters, setters, constructors, toequals and tostring methods for you for each of your properties
 @Data
 @Entity
 public class Recipe {

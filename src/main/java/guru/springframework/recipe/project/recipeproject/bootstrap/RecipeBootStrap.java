@@ -4,6 +4,7 @@ import guru.springframework.recipe.project.recipeproject.domain.*;
 import guru.springframework.recipe.project.recipeproject.repositories.CategoryRepository;
 import guru.springframework.recipe.project.recipeproject.repositories.RecipeRepository;
 import guru.springframework.recipe.project.recipeproject.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Component
 public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -34,6 +35,7 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
         recipeRepository.saveAll(getRecipes());
+        log.debug("loading bootstrap data");
     }
 
     private List<Recipe> getRecipes() {
