@@ -1,8 +1,12 @@
 package guru.springframework.recipe.project.recipeproject.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Set;
 
+//lombok creates getters, setters, constructors, toequals and tostring methods for you for each of your properties
+@Data
 @Entity
 public class Category {
 
@@ -15,27 +19,4 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     Set<Recipe> recipes;
 
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
 }
