@@ -23,7 +23,7 @@ public class Recipe {
     @Lob
     private String directions;
 
-    //cascase all persist all operations, Recipe is owner. Will be stored in ingredient recipe attribut test commit
+    //cascase all persist all operations, Recipe is owner. Will be stored in ingredient recipe attribute
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
