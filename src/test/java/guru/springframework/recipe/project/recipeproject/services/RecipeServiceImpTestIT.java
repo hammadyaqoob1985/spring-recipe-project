@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-public class RecipeServiceImplTest {
+public class RecipeServiceImpTestIT {
 
     RecipeServiceImpl recipeService;
 
