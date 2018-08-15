@@ -87,7 +87,9 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
                 "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving.");
 
         guacamoleRecipe.setPrepTime(10);
-        guacamoleRecipe.setCookTime(0);
+        guacamoleRecipe.setCookTime(30);
+        guacamoleRecipe.setSource(50);
+        guacamoleRecipe.setServings(5);
         guacamoleRecipe.setDifficulty(Difficulty.EASY);
         Notes guacamoleNotes = new Notes();
         guacamoleNotes.setRecipeNotes("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados.\n" +
@@ -109,6 +111,7 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.addIngredient(new Ingredient("freshly grated black pepper", new BigDecimal(2), dashUom, guacamoleRecipe));
         guacamoleRecipe.addIngredient(new Ingredient("ripe tomato, seeds and pulp removed, chopped", new BigDecimal(".5"), eachUom, guacamoleRecipe));
 
+        guacamoleRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
         guacamoleRecipe.getCategories().add(americanCategory);
         guacamoleRecipe.getCategories().add(mexicanCategory);
         recipes.add(guacamoleRecipe);
@@ -117,7 +120,11 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.setDescription("Spicy Grilled Chicken Taco");
         tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
+        tacosRecipe.setSource(60);
+        tacosRecipe.setServings(6);
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
+
+        tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvtrAnNm");
 
         tacosRecipe.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
                 "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
