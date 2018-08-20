@@ -76,7 +76,7 @@ public class RecipeServiceImplTest {
         recipeCommand.setId(1L);
 
         Recipe recipe = new Recipe();
-        recipeCommand.setId(2L);
+        recipe.setId(2L);
 
         when(recipeCommandToRecipe.convert(any(RecipeCommand.class))).thenReturn(recipe);
         when(recipeToRecipeCommand.convert(any(Recipe.class))).thenReturn(recipeCommand);
