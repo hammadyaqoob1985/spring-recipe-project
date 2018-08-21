@@ -99,12 +99,27 @@ public class RecipeServiceImplTest {
         assertEquals(recipe, recipeCaptor.getValue());
         assertEquals(recipe, recipeCaptor1.getValue());
 
+    }
 
+    @Test
+    public void getRecipeCommandById() {
 
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
 
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
 
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
 
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeToRecipeCommand.convert(any(Recipe.class))).thenReturn(recipeCommand);
 
+        RecipeCommand commandReturned = recipeService.findCommandById(1L);
 
+        assertNotNull(commandReturned);
+        verify(recipeRepository,times(1)).findById(anyLong());
+        verify(recipeRepository,never()).findAll();
+        verify(recipeToRecipeCommand,times(1)).convert(any(Recipe.class));
     }
 }
