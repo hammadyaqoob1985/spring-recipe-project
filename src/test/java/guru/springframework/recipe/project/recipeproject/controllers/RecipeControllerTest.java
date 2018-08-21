@@ -1,5 +1,6 @@
 package guru.springframework.recipe.project.recipeproject.controllers;
 
+import guru.springframework.recipe.project.recipeproject.commands.RecipeCommand;
 import guru.springframework.recipe.project.recipeproject.domain.Recipe;
 import guru.springframework.recipe.project.recipeproject.services.RecipeService;
 import org.junit.Before;
@@ -16,6 +17,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RecipeControllerTest {
@@ -67,7 +69,62 @@ public class RecipeControllerTest {
 
         assertEquals(captor.getValue(),recipe1);
 
+    }
 
+    @Test
+    public void showAddRecipePageMockMvc() throws Exception {
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
+        mockMvc.perform(get("/recipe/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipeform"))
+                .andExpect(model().attributeExists("recipe"));
+
+    }
+
+    @Test
+    public void showAddRecipePage() {
+
+        String returnedString = recipeController.newRecipe(model);
+
+        assertEquals(returnedString,"recipe/recipeform");
+
+        verify(model,times(1)).addAttribute(eq("recipe"), any(RecipeCommand.class));
+
+    }
+
+    @Test
+    public void saveOrUpdateMockMvc() throws Exception {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
+        when(recipeService.saveRecipeCommand(any(RecipeCommand.class))).thenReturn(recipeCommand);
+
+        mockMvc.perform(post("/recipe/", recipeCommand))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/show/" + recipeCommand.getId()));
+
+    }
+
+    @Test
+    public void saveOrUpdate() {
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeService.saveRecipeCommand(any(RecipeCommand.class))).thenReturn(recipeCommand);
+
+        String returnedString = recipeController.saveOrUpdate(recipeCommand);
+
+        assertEquals(returnedString,"redirect:/recipe/show/" + recipeCommand.getId());
+
+        ArgumentCaptor<RecipeCommand> recipeCommandArgumentCaptor = ArgumentCaptor.forClass(RecipeCommand.class);
+        verify(recipeService,times(1)).saveRecipeCommand(recipeCommandArgumentCaptor.capture());
+
+        assertEquals(recipeCommandArgumentCaptor.getValue(),recipeCommand);
 
     }
 }
