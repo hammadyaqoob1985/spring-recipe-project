@@ -47,8 +47,10 @@ public class Recipe {
     //since method already here lombok wont override it
     //added so that when we add a note to a recipe the bidierectional relation is automatically set
     public void setNotes(Notes notes) {
-        this.notes = notes;
-        notes.setRecipe(this);
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
     }
 
     //added so that when adding Ingredient to recipe bidirectional relation set
