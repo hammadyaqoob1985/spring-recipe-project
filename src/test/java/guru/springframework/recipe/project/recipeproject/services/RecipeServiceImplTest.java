@@ -122,4 +122,10 @@ public class RecipeServiceImplTest {
         verify(recipeRepository,never()).findAll();
         verify(recipeToRecipeCommand,times(1)).convert(any(Recipe.class));
     }
+
+    @Test
+    public void deleteRecipeById() {
+        recipeService.deleteById(2L);
+        verify(recipeRepository,times(1)).deleteById(anyLong());
+    }
 }
