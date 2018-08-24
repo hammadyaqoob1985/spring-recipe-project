@@ -109,7 +109,7 @@ public class RecipeControllerTest {
                 .param("id", "")
                 .param("description", "some string"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/show/" + recipeCommand.getId()));
+                .andExpect(view().name("redirect:/recipe/" + recipeCommand.getId() + "/show/"));
 
     }
 
@@ -123,7 +123,7 @@ public class RecipeControllerTest {
 
         String returnedString = recipeController.saveOrUpdate(recipeCommand);
 
-        assertEquals(returnedString,"redirect:/recipe/show/" + recipeCommand.getId());
+        assertEquals(returnedString,"redirect:/recipe/" + recipeCommand.getId() + "/show/");
 
         ArgumentCaptor<RecipeCommand> recipeCommandArgumentCaptor = ArgumentCaptor.forClass(RecipeCommand.class);
         verify(recipeService,times(1)).saveRecipeCommand(recipeCommandArgumentCaptor.capture());
