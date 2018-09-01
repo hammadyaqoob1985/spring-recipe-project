@@ -43,12 +43,14 @@ public class IngredientToIngredientCommandTest {
         ingredient.setDescription(TEST_DESCRIPTION);
         ingredient.setAmount(AMOUNT);
         ingredient.setRecipe(RECIPE);
+        ingredient.getRecipe().setId(1L);
 
         IngredientCommand ingredientCommand = ingredientToIngredientCommand.convert(ingredient);
 
         assertEquals(ID,ingredientCommand.getId());
         assertEquals(TEST_DESCRIPTION,ingredientCommand.getDescription());
         assertEquals(AMOUNT,ingredientCommand.getAmount());
+        assertEquals(Long.valueOf(1),ingredientCommand.getRecipeId());
     }
 
     @Test
