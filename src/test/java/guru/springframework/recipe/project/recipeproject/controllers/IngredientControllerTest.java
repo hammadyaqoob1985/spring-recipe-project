@@ -243,6 +243,15 @@ public class IngredientControllerTest {
         verify(ingredientService,times(1)).saveIngredientCommand(ingredientCommandArgumentCaptor.capture());
         assertEquals(ingredientCommand, ingredientCommandArgumentCaptor.getValue());
 
+    }
+
+    @Test
+    public void testDeleteIngredient() throws Exception {
+        mockMvc.perform(get("/recipe/1/ingredient/2/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients"));
+
+        verify(ingredientService,times(1)).deleteByRecipeIdAndIngredientId(new Long(1), new Long(2));
 
     }
 }
