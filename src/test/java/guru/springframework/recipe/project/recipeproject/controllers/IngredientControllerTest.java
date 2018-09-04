@@ -92,6 +92,20 @@ public class IngredientControllerTest {
     }
 
     @Test
+    public void testAddIngredientView() throws Exception {
+
+        when(uomService.getAllUoms()).thenReturn(new HashSet<>());
+
+        mockMvc.perform(get("/recipe/1/ingredient/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/ingredientform"))
+                .andExpect(model().attributeExists("ingredient"))
+                .andExpect(model().attributeExists("uomList"));
+
+        verify(uomService,times(1)).getAllUoms();
+    }
+
+    @Test
     public void testIndividualIngredientView() throws Exception {
 
         IngredientCommand ingredientCommand = new IngredientCommand();
