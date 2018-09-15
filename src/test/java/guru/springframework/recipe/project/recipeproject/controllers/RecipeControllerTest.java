@@ -41,34 +41,34 @@ public class RecipeControllerTest {
 
     @Test
     public void getRecipeMockMvc() throws Exception {
-        Recipe recipe1 =  new Recipe();
+        Recipe recipe1 = new Recipe();
         recipe1.setId(1L);
 
-       when(recipeService.findById(anyLong())).thenReturn(recipe1);
+        when(recipeService.findById(anyLong())).thenReturn(recipe1);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
-       mockMvc.perform(get("/recipe/1/show"))
-               .andExpect(status().isOk())
-               .andExpect(view().name("/recipe/show"))
-       .andExpect(model().attributeExists("recipe"));
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/recipe/show"))
+                .andExpect(model().attributeExists("recipe"));
 
     }
 
     @Test
     public void getRecipe() {
-        Recipe recipe1 =  new Recipe();
+        Recipe recipe1 = new Recipe();
         recipe1.setId(1L);
 
         when(recipeService.findById(anyLong())).thenReturn(recipe1);
 
-        String returnedString = recipeController.getRecipe(model,"1");
+        String returnedString = recipeController.getRecipe(model, "1");
 
-        assertEquals(returnedString,"/recipe/show");
+        assertEquals(returnedString, "/recipe/show");
 
         ArgumentCaptor<Recipe> captor = ArgumentCaptor.forClass(Recipe.class);
-        verify(model,times(1)).addAttribute(eq("recipe"), captor.capture());
-        verify(recipeService,times(1)).findById(1L);
+        verify(model, times(1)).addAttribute(eq("recipe"), captor.capture());
+        verify(recipeService, times(1)).findById(1L);
 
-        assertEquals(captor.getValue(),recipe1);
+        assertEquals(captor.getValue(), recipe1);
 
     }
 
@@ -87,9 +87,9 @@ public class RecipeControllerTest {
 
         String returnedString = recipeController.newRecipe(model);
 
-        assertEquals(returnedString,"recipe/recipeform");
+        assertEquals(returnedString, "recipe/recipeform");
 
-        verify(model,times(1)).addAttribute(eq("recipe"), any(RecipeCommand.class));
+        verify(model, times(1)).addAttribute(eq("recipe"), any(RecipeCommand.class));
 
     }
 
@@ -119,12 +119,12 @@ public class RecipeControllerTest {
 
         String returnedString = recipeController.saveOrUpdate(recipeCommand);
 
-        assertEquals(returnedString,"redirect:/recipe/" + recipeCommand.getId() + "/show/");
+        assertEquals(returnedString, "redirect:/recipe/" + recipeCommand.getId() + "/show/");
 
         ArgumentCaptor<RecipeCommand> recipeCommandArgumentCaptor = ArgumentCaptor.forClass(RecipeCommand.class);
-        verify(recipeService,times(1)).saveRecipeCommand(recipeCommandArgumentCaptor.capture());
+        verify(recipeService, times(1)).saveRecipeCommand(recipeCommandArgumentCaptor.capture());
 
-        assertEquals(recipeCommandArgumentCaptor.getValue(),recipeCommand);
+        assertEquals(recipeCommandArgumentCaptor.getValue(), recipeCommand);
 
     }
 
@@ -147,9 +147,9 @@ public class RecipeControllerTest {
 
         String returnedString = recipeController.deleteById("1");
 
-        assertEquals(returnedString,"redirect:/");
+        assertEquals(returnedString, "redirect:/");
 
-        verify(recipeService,times(1)).deleteById(new Long(1));
+        verify(recipeService, times(1)).deleteById(new Long(1));
     }
 
     @Test
@@ -159,7 +159,7 @@ public class RecipeControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
-        verify(recipeService,times(1)).deleteById(new Long(1));
+        verify(recipeService, times(1)).deleteById(new Long(1));
 
     }
 
@@ -167,9 +167,10 @@ public class RecipeControllerTest {
     public void recipeNotFound() throws Exception {
 
         when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
         mockMvc.perform(get("/recipe/1/show"))
-                .andExpect(status().isNotFound());
-
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
     }
 }
