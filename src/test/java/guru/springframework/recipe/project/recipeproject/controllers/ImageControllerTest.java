@@ -1,6 +1,7 @@
 package guru.springframework.recipe.project.recipeproject.controllers;
 
 import guru.springframework.recipe.project.recipeproject.commands.RecipeCommand;
+import guru.springframework.recipe.project.recipeproject.exceptions.ControllerExceptionHandler;
 import guru.springframework.recipe.project.recipeproject.services.ImageService;
 import guru.springframework.recipe.project.recipeproject.services.RecipeService;
 import org.junit.Before;
@@ -39,7 +40,9 @@ public class ImageControllerTest {
         MockitoAnnotations.initMocks(this);
 
         imageController = new ImageController(recipeService, imageService);
-        mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -94,6 +97,15 @@ public class ImageControllerTest {
         byte[] responseBytes = response.getContentAsByteArray();
 
         assertEquals(s.getBytes().length, responseBytes.length);
+    }
+
+    @Test
+    public void testNumbeFormatExceptionHandling() throws Exception {
+
+        mockMvc.perform(get("/recipe/blah/recipeimage"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+
     }
 
 }
