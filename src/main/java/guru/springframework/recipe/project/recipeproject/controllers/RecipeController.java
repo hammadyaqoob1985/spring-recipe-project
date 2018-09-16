@@ -68,20 +68,4 @@ public class RecipeController {
         return modelAndView;
 
     }
-
-    //Add response status here other 200 will be returned not 404
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception exception) {
-        log.error("Handling Number Format exceptionError");
-        log.error(exception.getMessage());
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("400error");
-        modelAndView.addObject("exception", exception);
-
-        return modelAndView;
-
-    }
 }
