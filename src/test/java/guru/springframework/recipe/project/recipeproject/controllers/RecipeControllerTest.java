@@ -40,9 +40,9 @@ public class RecipeControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         recipeController = new RecipeController(recipeService);
-         mockMvc = MockMvcBuilders.standaloneSetup(recipeController)
+        mockMvc = MockMvcBuilders.standaloneSetup(recipeController)
                 .setControllerAdvice(new ControllerExceptionHandler())
-                        .build();
+                .build();
     }
 
     @Test
@@ -124,7 +124,8 @@ public class RecipeControllerTest {
 
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", ""))
+                .param("id", "")
+                .param("cookTime", "3000"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipe"))
                 .andExpect(view().name("recipe/recipeform"));
@@ -158,7 +159,7 @@ public class RecipeControllerTest {
     @Test
     public void testDeleteRecipe() throws Exception {
 
-         mockMvc.perform(get("/recipe/1/delete"))
+        mockMvc.perform(get("/recipe/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
