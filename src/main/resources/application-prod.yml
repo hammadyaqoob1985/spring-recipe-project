@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/sfg_prod
-    username: sfg_prod_user
-    password: password
+    username: ENC(arBCNLsq589b5kelutIiOcjEhlKYdFEt)
+    password: ENC(BOwjc20iff3lK+YS6idjrCV83AGpIauP)
     platform: mysql
   jpa:
     hibernate:
@@ -10,3 +10,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql
     show-sql: false
+jasypt:
+  encryptor:
+    password: password1
+string: prod

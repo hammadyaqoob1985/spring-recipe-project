@@ -6,6 +6,7 @@ import guru.springframework.recipe.project.recipeproject.domain.UnitOfMeasure;
 import guru.springframework.recipe.project.recipeproject.repositories.CategoryRepository;
 import guru.springframework.recipe.project.recipeproject.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Component;
 @Profile({"dev", "prod"})
 public class BootStrapMySQL implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Value("${string}")
+    String msg;
+
     private final CategoryRepository categoryRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
@@ -31,13 +35,14 @@ public class BootStrapMySQL implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
+        log.debug("onApplicationEvent " + msg);
         if (categoryRepository.count() == 0L){
-            log.debug("Loading Categories");
+            log.debug("Loading Categories " + msg);
             loadCategories();
         }
 
         if (unitOfMeasureRepository.count() == 0L){
-            log.debug("Loading UOMs");
+            log.debug("Loading UOMs " + msg);
             loadUom();
         }
     }

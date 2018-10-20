@@ -6,6 +6,7 @@ import guru.springframework.recipe.project.recipeproject.repositories.RecipeRepo
 import guru.springframework.recipe.project.recipeproject.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -27,6 +28,8 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
     private RecipeRepository recipeRepository;
     @Autowired
     private UnitOfMeasureRepository unitOfMeasureRepository;
+    @Value("${string}")
+    String msg;
 
     public RecipeBootStrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
@@ -40,7 +43,7 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
         recipeRepository.saveAll(getRecipes());
-        log.debug("loading bootstrap data");
+        log.debug("loading bootstrap data" + msg);
     }
 
     private List<Recipe> getRecipes() {
