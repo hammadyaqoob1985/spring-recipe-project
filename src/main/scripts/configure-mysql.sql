@@ -25,3 +25,18 @@ GRANT INSERT ON sfg_prod.* to 'sfg_prod_user'@'%';
 GRANT DELETE ON sfg_prod.* to 'sfg_prod_user'@'%';
 GRANT UPDATE ON sfg_prod.* to 'sfg_prod_user'@'%';
 
+CREATE DATABASE sfg_qa;
+
+#Create database service accounts
+CREATE USER 'sfg_qa_user'@'127.0.0.1' IDENTIFIED BY 'vetE4ran';
+CREATE USER 'sfg_qa_user'@'%' IDENTIFIED BY 'vetE4ran';
+
+#Database grants
+GRANT SELECT ON sfg_qa.* to 'sfg_qa_user'@'127.0.0.1';
+GRANT INSERT ON sfg_qa.* to 'sfg_qa_user'@'127.0.0.1';
+GRANT DELETE ON sfg_qa.* to 'sfg_qa_user'@'127.0.0.1';
+GRANT UPDATE ON sfg_qa.* to 'sfg_qa_user'@'127.0.0.1';
+GRANT SELECT ON sfg_qa.* to 'sfg_qa_user'@'%';
+GRANT INSERT ON sfg_qa.* to 'sfg_qa_user'@'%';
+GRANT DELETE ON sfg_qa.* to 'sfg_qa_user'@'%';
+GRANT UPDATE ON sfg_qa.* to 'sfg_qa_user'@'%';
