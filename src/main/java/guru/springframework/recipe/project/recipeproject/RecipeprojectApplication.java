@@ -9,5 +9,5 @@ public class RecipeprojectApplication {
         SpringApplication.run(RecipeprojectApplication.class, args);
     }
 
-    //whitespace chang
+    //whitespace change
 }
