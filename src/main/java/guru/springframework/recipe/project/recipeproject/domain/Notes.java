@@ -13,7 +13,7 @@ public class Notes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     //does not need cascade as when we delete note we do not want to delete recipe
     @OneToOne

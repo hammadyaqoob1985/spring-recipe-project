@@ -15,7 +15,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private String Id;
     private String description;
 
     //do not need to have table in jpa for this as already done in recipe categories variable

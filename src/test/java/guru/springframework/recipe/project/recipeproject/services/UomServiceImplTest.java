@@ -37,10 +37,10 @@ public class UomServiceImplTest {
         Set<UnitOfMeasure> unitOfMeasureSet = new HashSet<>();
 
         UnitOfMeasure unitOfMeasure = new UnitOfMeasure();
-        unitOfMeasure.setId(1L);
+        unitOfMeasure.setId("1L");
 
         UnitOfMeasure unitOfMeasure1 = new UnitOfMeasure();
-        unitOfMeasure1.setId(2L);
+        unitOfMeasure1.setId("2L");
 
         unitOfMeasureSet.add(unitOfMeasure);
         unitOfMeasureSet.add(unitOfMeasure1);

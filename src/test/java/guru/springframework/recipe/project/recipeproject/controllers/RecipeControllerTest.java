@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -48,9 +47,9 @@ public class RecipeControllerTest {
     @Test
     public void getRecipeMockMvc() throws Exception {
         Recipe recipe1 = new Recipe();
-        recipe1.setId(1L);
+        recipe1.setId("1L");
 
-        when(recipeService.findById(anyLong())).thenReturn(recipe1);
+        when(recipeService.findById(anyString())).thenReturn(recipe1);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
@@ -62,17 +61,17 @@ public class RecipeControllerTest {
     @Test
     public void getRecipe() {
         Recipe recipe1 = new Recipe();
-        recipe1.setId(1L);
+        recipe1.setId("1L");
 
-        when(recipeService.findById(anyLong())).thenReturn(recipe1);
+        when(recipeService.findById(anyString())).thenReturn(recipe1);
 
-        String returnedString = recipeController.getRecipe(model, "1");
+        String returnedString = recipeController.getRecipe(model, "1L");
 
         assertEquals(returnedString, "/recipe/show");
 
         ArgumentCaptor<Recipe> captor = ArgumentCaptor.forClass(Recipe.class);
         verify(model, times(1)).addAttribute(eq("recipe"), captor.capture());
-        verify(recipeService, times(1)).findById(1L);
+        verify(recipeService, times(1)).findById("1L");
 
         assertEquals(captor.getValue(), recipe1);
 
@@ -101,7 +100,7 @@ public class RecipeControllerTest {
     @Test
     public void saveOrUpdateMockMvc() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(1L);
+        recipeCommand.setId("1L");
 
         when(recipeService.saveRecipeCommand(any(RecipeCommand.class))).thenReturn(recipeCommand);
 
@@ -118,7 +117,7 @@ public class RecipeControllerTest {
     @Test
     public void testValidationOfFormEntries() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(1L);
+        recipeCommand.setId("1L");
 
         when(recipeService.saveRecipeCommand(any(RecipeCommand.class))).thenReturn(recipeCommand);
 
@@ -135,9 +134,9 @@ public class RecipeControllerTest {
     @Test
     public void testGetUpdatedView() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(1L);
+        recipeCommand.setId("1L");
 
-        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
 
         mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(status().isOk())
@@ -153,7 +152,7 @@ public class RecipeControllerTest {
 
         assertEquals(returnedString, "redirect:/");
 
-        verify(recipeService, times(1)).deleteById(new Long(1));
+        verify(recipeService, times(1)).deleteById(new String("1"));
     }
 
     @Test
@@ -163,14 +162,14 @@ public class RecipeControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
-        verify(recipeService, times(1)).deleteById(new Long(1));
+        verify(recipeService, times(1)).deleteById(new String("1"));
 
     }
 
     @Test
     public void recipeNotFound() throws Exception {
 
-        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        when(recipeService.findById(anyString())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
@@ -180,7 +179,7 @@ public class RecipeControllerTest {
     @Test
     public void NumberFormatExceptionThrown() throws Exception {
 
-        when(recipeService.findById(anyLong())).thenThrow(NumberFormatException.class);
+        when(recipeService.findById(anyString())).thenThrow(NumberFormatException.class);
 
         mockMvc.perform(get("/recipe/blah/show"))
                 .andExpect(status().isBadRequest())
