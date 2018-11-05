@@ -5,7 +5,7 @@
 
     <groupId>guru.springframework.recipe.project</groupId>
     <artifactId>recipeproject</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>recipeproject</name>
@@ -116,5 +116,17 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>ip-172-31-45-163.us-east-2.compute.internal-releases</name>
+            <url>http://artifactory.desifiedrecipe.co.uk/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>ip-172-31-45-163.us-east-2.compute.internal-snapshots</name>
+            <url>http://artifactory.desifiedrecipe.co.uk/artifactory/libs-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
