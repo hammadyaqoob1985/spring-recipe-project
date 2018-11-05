@@ -47,32 +47,32 @@ public class RecipeControllerTest {
 
     @Test
     public void getRecipeMockMvc() throws Exception {
-        Recipe recipe1 = new Recipe();
+        RecipeCommand recipe1 = new RecipeCommand();
         recipe1.setId(1L);
 
-        when(recipeService.findById(anyLong())).thenReturn(recipe1);
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipe1);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/recipe/show"))
+                .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
 
     }
 
     @Test
     public void getRecipe() {
-        Recipe recipe1 = new Recipe();
+        RecipeCommand recipe1 = new RecipeCommand();
         recipe1.setId(1L);
 
-        when(recipeService.findById(anyLong())).thenReturn(recipe1);
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipe1);
 
         String returnedString = recipeController.getRecipe(model, "1");
 
-        assertEquals(returnedString, "/recipe/show");
+        assertEquals(returnedString, "recipe/show");
 
         ArgumentCaptor<Recipe> captor = ArgumentCaptor.forClass(Recipe.class);
         verify(model, times(1)).addAttribute(eq("recipe"), captor.capture());
-        verify(recipeService, times(1)).findById(1L);
+        verify(recipeService, times(1)).findCommandById(1L);
 
         assertEquals(captor.getValue(), recipe1);
 
@@ -170,7 +170,7 @@ public class RecipeControllerTest {
     @Test
     public void recipeNotFound() throws Exception {
 
-        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        when(recipeService.findCommandById(anyLong())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())

@@ -37,7 +37,7 @@ public class ImageController {
     public String getImageform(Model model, @PathVariable String recipeId) {
         RecipeCommand recipeCommand =  recipeService.findCommandById(Long.valueOf(recipeId));
         model.addAttribute("recipe", recipeCommand);
-        return "/recipe/imageuploadform";
+        return "recipe/imageuploadform";
     }
 
     @PostMapping("/recipe/{recipeId}/image")
